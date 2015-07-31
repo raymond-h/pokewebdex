@@ -1,30 +1,28 @@
 {
-	"name": "pokewebdex",
-	"description": "Online Pokemon Dexter",
-	"version": "0.0.0",
-	"license": "MIT",
-	"main": "lib/index.js",
-	"author": "Raymond Hammarling",
-	"scripts": {
-
-		"lint": "eslint src/ test/",
-		"test": "mocha --compilers js:babel/register,es6:babel/register,es6.js:babel/register test/",
-		"build": "babel --stage 0 -d lib/ src/",
-
-
-		"pretest": "npm run lint",
-		"prebuild": "npm run test",
-		"watch": "onchange src/ -- npm run build && echo Done",
-		"dev": "npm run watch",
-		"prepublish": "npm run build"
-	},
-	"devDependencies": {
-
-		"babel": "latest",
-		"eslint": "latest",
-
-		"mocha": "latest",
-		"chai": "latest",
-		"onchange": "latest"
-	}
+  "name": "pokewebdex",
+  "description": "Online Pokemon Dexter",
+  "version": "0.0.0",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "author": "Raymond Hammarling",
+  "scripts": {
+    "lint": "eslint src/ test/",
+    "test": "mocha --compilers js:babel/register,es6:babel/register,es6.js:babel/register test/",
+    "build": "babel --stage 0 -d lib/ src/",
+    "pretest": "npm run lint",
+    "prebuild": "npm run test",
+    "watch": "onchange src/ -- npm run build && echo Done",
+    "dev": "npm run watch",
+    "prepublish": "npm run build"
+  },
+  "devDependencies": {
+    "babel": "latest",
+    "babel-eslint": "^4.0.5",
+    "chai": "latest",
+    "eslint": "^0.24.1",
+    "eslint-config-kellyirc": "^1.0.0",
+    "eslint-plugin-react": "^3.1.0",
+    "mocha": "latest",
+    "onchange": "latest"
+  }
 }

@@ -14,9 +14,8 @@ async function writeSqlite() {
     await writeToDatabase(knex);
 }
 
-Promise.resolve(writeSqlite()).done(
-    () => {
-        console.log('WE DONE HERE');
-        process.exit(0);
-    }
-);
+Promise.resolve(writeSqlite())
+.done(() => {
+    console.log('WE DONE HERE');
+    process.exit(0);
+});

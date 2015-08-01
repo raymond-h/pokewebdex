@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "bluebird": "^2.9.34",
+    "bookshelf": "^0.8.1",
     "csv-parse": "^0.1.4",
     "knex": "^0.8.6",
     "lodash": "^3.10.0",

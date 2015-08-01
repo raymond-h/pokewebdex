@@ -17,7 +17,7 @@ async function writeToDb(tables) {
     await writeToDatabase(knex, tables);
 }
 
-Promise.try(() => writeToDb(['pokemon']))
+Promise.try(() => writeToDb())
 .done(() => {
     console.log('WE DONE HERE');
     process.exit(0);

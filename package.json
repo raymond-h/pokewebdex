@@ -19,10 +19,17 @@
     "babel": "latest",
     "babel-eslint": "^4.0.5",
     "chai": "latest",
-    "eslint": "^0.24.1",
-    "eslint-config-kellyirc": "^1.0.0",
+    "eslint": "latest",
+    "eslint-config-kellyirc": "^2.0.0",
     "eslint-plugin-react": "^3.1.0",
     "mocha": "latest",
     "onchange": "latest"
+  },
+  "dependencies": {
+    "bluebird": "^2.9.34",
+    "csv-parse": "^0.1.4",
+    "knex": "^0.8.6",
+    "lodash": "^3.10.0",
+    "skywalker": "^0.3.2"
   }
 }

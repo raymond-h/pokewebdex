@@ -7,11 +7,16 @@ async function writeSqlite() {
     const knex = Knex({
         client: 'sqlite3',
         connection: {
-            filename: './mydb.sqlite'
+            filename: './pokedex.sqlite'
         }
     });
 
     await writeToDatabase(knex);
 }
 
-Promise.resolve(writeSqlite()).done();
+Promise.resolve(writeSqlite()).done(
+    () => {
+        console.log('WE DONE HERE');
+        process.exit(0);
+    }
+);

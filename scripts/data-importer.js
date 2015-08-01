@@ -36,11 +36,10 @@ function typesForKeys(data) {
             keys[key] = keys[key] != null ? keys[key] : {};
             const cell = row[key];
 
-            if(cell == null) {
+            if(cell == null || cell === '') {
                 keys[key].nullable = true;
             }
-
-            if(_.isNumber(cell)) {
+            else if(_.isNumber(cell)) {
                 keys[key].type = 'number';
                 keys[key].integer = Number.isInteger(cell);
 
@@ -63,7 +62,9 @@ function typesForKeys(data) {
 async function createTableFor(knex, tableName, csv) {
     const types = typesForKeys(csv);
 
-    await knex.schema.createTable(tableName, (table) => {
+    await knex.schema
+    .dropTableIfExists(tableName)
+    .createTable(tableName, (table) => {
 
         for(const key of _.keys(types)) {
             const { type, integer, bool, nullable } = types[key];
@@ -93,7 +94,7 @@ async function createTableFor(knex, tableName, csv) {
     });
 }
 
-export default async function writeToDatabase(knex) {
+export default async function writeToDatabase(knex, tables) {
     const alreadyCloned = await new Promise((resolve) => {
         fs.exists('./pokedex', (exists) => resolve(exists));
     });
@@ -110,6 +111,10 @@ export default async function writeToDatabase(knex) {
     const files = await walkTree('./pokedex/pokedex/data/csv');
 
     for(const file of files) {
+        const tableName = path.basename(file, '.csv');
+
+        if(_.isArray(tables) && !_.includes(tables, tableName)) continue;
+
         const data = await fs.readFileAsync(file);
         const csv = await parseCsvAsync(data.toString(), {
             columns: true, auto_parse: true // eslint-disable-line camelcase
@@ -117,13 +122,15 @@ export default async function writeToDatabase(knex) {
 
         if(csv.length === 0) { continue; }
 
-        const tableName = path.basename(file, '.csv');
-
         console.log('Creating table ' + tableName);
 
         await createTableFor(knex, tableName, csv);
 
-        const chunks = _.chunk(csv, 20);
+        const columnCount = _.keys(csv[0]).length;
+        const chunkSize = Math.floor(10 / columnCount * 80);
+        console.log('\tChunk size: ' + chunkSize);
+
+        const chunks = _.chunk(csv, chunkSize);
         for(const chunk of chunks) {
             await knex(tableName).insert(chunk);
         }

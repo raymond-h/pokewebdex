@@ -21,6 +21,7 @@
     "prepublish": "npm run build"
   },
   "devDependencies": {
+    "absurd": "^0.3.4",
     "babel": "latest",
     "babel-eslint": "^4.0.5",
     "browserify": "^11.0.1",

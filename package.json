@@ -6,31 +6,48 @@
   "main": "lib/index.js",
   "author": "Raymond Hammarling",
   "scripts": {
-    "lint": "eslint src/ test/",
-    "test": "mocha --compilers js:babel/register,es6:babel/register,es6.js:babel/register test/",
-    "build": "babel --stage 0 -d lib/ src/",
+    "lint": "eslint src/ client/ test/",
+    "test": "mocha --compilers js:babel/register test/",
+    "build:server": "babel --stage 0 -d lib/ src/",
+    "build:client": "npm run copy && browserify -t [ babelify --stage 0 ] -e client/index.js > public/index.js",
+    "copy": "cpx \"client/**/*.html\" public",
     "pretest": "npm run lint",
     "prebuild": "npm run test",
+    "build": "npm run build:server & npm run build:client",
     "watch": "onchange src/ -- npm run build && echo Done",
-    "dev": "npm run watch",
+    "watch:server": "nodemon --watch src --exec babel-node --stage 0 -- src/index.js",
+    "watch:client": "parallelshell \"npm run copy -- --watch\" \"watchify -t [ babelify --stage 0 ] -e client/index.js -o public/index.js\"",
+    "dev": "parallelshell \"npm run watch:server\" \"npm run watch:client\" \"livereload public/\"",
     "prepublish": "npm run build"
   },
   "devDependencies": {
     "babel": "latest",
     "babel-eslint": "^4.0.5",
+    "browserify": "^11.0.1",
     "chai": "latest",
+    "cpx": "^1.2.1",
     "eslint": "latest",
     "eslint-config-kellyirc": "^2.0.0",
     "eslint-plugin-react": "^3.1.0",
+    "livereload": "^0.3.7",
     "mocha": "latest",
-    "onchange": "latest"
+    "nodemon": "^1.4.0",
+    "onchange": "latest",
+    "parallelshell": "^2.0.0",
+    "watchify": "^3.3.1"
   },
   "dependencies": {
+    "backbone": "^1.2.1",
     "bluebird": "^2.9.34",
     "bookshelf": "^0.8.1",
     "csv-parse": "^0.1.4",
+    "express": "^4.13.2",
+    "jquery": "^1.11.3",
     "knex": "^0.8.6",
     "lodash": "^3.10.0",
+    "morgan": "^1.6.1",
+    "react": "^0.13.3",
+    "serve-static": "^1.10.0",
     "skywalker": "^0.3.2"
   }
 }

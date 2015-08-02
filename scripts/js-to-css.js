@@ -1,12 +1,19 @@
-import path from 'path';
-import Promise from 'bluebird';
-import Absurd from 'absurd';
+const path = require('path');
+const Promise = require('bluebird');
+const Absurd = require('absurd');
 
-import style from '../client/style.js';
+require('babel/register');
 
-Promise.try(async () => {
+module.exports = function generateCss() {
+
+    delete require.cache[require.resolve('../client/style.js')];
+    const style = require('../client/style.js');
+
     const absurd = Absurd().add(style);
 
-    await Promise.fromNode(absurd.compileFile.bind(absurd, path.join(__dirname, '../public/index.css')));
+    return Promise.fromNode(absurd.compileFile.bind(absurd,
+        path.join(__dirname, '../public/index.css')
+    ));
+};
 
-}).done();
+if(require.main === module) { Promise.try(module.exports).done(); }

@@ -16,8 +16,8 @@
     "build": "npm run build:server & npm run build:client",
     "watch": "onchange src/ -- npm run build && echo Done",
     "watch:server": "nodemon --watch src --exec babel-node --stage 0 -- src/index.js",
-    "watch:client": "parallelshell \"npm run copy -- --watch\" \"watchify -t [ babelify --stage 0 ] -e client/index.js -o public/index.js\"",
-    "dev": "parallelshell \"npm run watch:server\" \"npm run watch:client\" \"livereload public/\"",
+    "watch:client": "parallelshell \"npm run copy -- --watch\" \"watchify -t [ babelify --stage 0 ] -e client/index.js -o public/index.js\" \"onchange client/ -- node scripts/js-to-css.js\" \"livereload public/ -i 100\"",
+    "dev": "parallelshell \"npm run watch:server\" \"npm run watch:client\"",
     "prepublish": "npm run build"
   },
   "devDependencies": {

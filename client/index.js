@@ -15,8 +15,6 @@ class App extends React.Component {
     async componentDidMount() {
         const pkmn = await Promise.resolve(new PokemonCollection().fetch());
 
-        console.log(pkmn);
-
         this.setState({ data: pkmn });
     }
 
@@ -24,7 +22,7 @@ class App extends React.Component {
         return <div>
             {
                 this.state.data.map((pkmn) =>
-                    <PokemonDisplay pokemon={this.state.data} language="en" />
+                    <PokemonDisplay pokemon={pkmn} language="en" />
                 )
             }
         </div>;
@@ -33,11 +31,11 @@ class App extends React.Component {
 
 class PokemonDisplay extends React.Component {
     isThisLang(name) {
-        return name.language.identifier === this.props.language;
+        return name.languageIdentifier === this.props.language;
     }
 
     getNameObj() {
-        return _.find(this.props.pokemon.species.names, ::this.isThisLang);
+        return _.find(this.props.pokemon.names, ::this.isThisLang);
     }
 
     render() {

@@ -1,13 +1,13 @@
-import _ from 'lodash';
-import Backbone from 'backbone';
+import feign from 'feignjs';
+import FeignNode from 'feignjs-node';
 
-export class Pokemon extends Backbone.Model {
-    urlRoot = '/api/pokemon';
-}
+const apiDesc = {
+    getAllPokemon: 'GET /api/pokemon',
+    getPokemon: 'GET /api/pokemon/{id}'
+};
 
-export class PokemonCollection extends Backbone.Collection {
-    url = '/api/pokemon';
-}
-
-Pokemon.prototype.collection = PokemonCollection;
-PokemonCollection.prototype.model = Pokemon;
+export default feign.builder()
+    .client(new FeignNode())
+    .decoder(new feign.JsonDecoder())
+    .encoder(new feign.JsonEncoder())
+    .target(apiDesc, '');

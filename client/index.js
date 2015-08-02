@@ -4,7 +4,7 @@ import _ from 'lodash';
 import React from 'react';
 import Promise from 'bluebird';
 
-import { PokemonCollection } from './api';
+import api from './api';
 
 class App extends React.Component {
     constructor() {
@@ -13,7 +13,7 @@ class App extends React.Component {
     }
 
     async componentDidMount() {
-        const pkmn = await Promise.resolve(new PokemonCollection().fetch());
+        const pkmn = await api.getAllPokemon();
 
         this.setState({ data: pkmn });
     }

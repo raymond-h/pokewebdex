@@ -2,36 +2,26 @@ import _polyfill from 'babel/polyfill';
 
 import _ from 'lodash';
 import React from 'react';
-import Promise from 'bluebird';
 
 import api from './api';
+
+import PokemonList from './components/list';
 
 class App extends React.Component {
     constructor() {
         super();
-        this.state = { data: [] };
+
+        this.state = { pokemon: [] };
     }
 
     async componentDidMount() {
-        const pkmn = await api.getAllPokemon();
+        const pokemon = await api.getAllPokemon();
 
-        this.setState({ data: pkmn });
+        this.setState({ pokemon: _(pokemon).value() });
     }
 
     render() {
-        return <div>
-            {
-                this.state.data.map((pkmn) =>
-                    <PokemonDisplay pokemon={pkmn} language="en" />
-                )
-            }
-        </div>;
-    }
-}
-
-class PokemonDisplay extends React.Component {
-    render() {
-        return <p>{ this.props.pokemon.identifier }</p>;
+        return <PokemonList pokemon={this.state.pokemon} dex='national' />;
     }
 }
 

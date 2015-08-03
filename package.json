@@ -49,6 +49,7 @@
     "lodash": "^3.10.0",
     "morgan": "^1.6.1",
     "react": "^0.13.3",
+    "react-virtual-list": "^1.2.1",
     "serve-static": "^1.10.0",
     "skywalker": "^0.3.2",
     "sqlite3": "^3.0.9"

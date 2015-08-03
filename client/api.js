@@ -3,9 +3,10 @@ import FeignNode from 'feignjs-node';
 
 const apiDesc = {
     getAllPokemon: 'GET /api/pokemon',
-    getPokemon: 'GET /api/pokemon/{id}',
+    getPokemon: 'GET /api/pokemon/{pkmnId}',
 
-    getPokedexNumber: 'GET /api/pokemon/{id}/dex/{dex}'
+    getPokedexNumber: 'GET /api/pokemon/{pkmnId}/dex/{dexId}',
+    getPokemonName: 'GET /api/pokemon/{pkmnId}/name/{langId}'
 };
 
 export default feign.builder()

@@ -31,7 +31,7 @@ class App extends React.Component {
 
 class PokemonDisplay extends React.Component {
     isThisLang(name) {
-        return name.languageIdentifier === this.props.language;
+        return name.language.identifier === this.props.language;
     }
 
     getNameObj() {

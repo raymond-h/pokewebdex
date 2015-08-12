@@ -1,6 +1,7 @@
 import _ from 'lodash';
 
 import listStyle from './components/list-style';
+import detailsStyle from './components/details-style';
 
 export default _.assign(
     {
@@ -8,5 +9,5 @@ export default _.assign(
             margin: '0px'
         }
     },
-    listStyle
+    listStyle, detailsStyle
 );

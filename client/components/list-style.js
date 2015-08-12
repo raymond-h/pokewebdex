@@ -1,10 +1,9 @@
 export default {
     '.pokemon-list': {
-        width: '500px'
+        width: '300px'
     },
 
     '.pokemon-entry': {
-        height: '30px',
-        padding: '0 20px'
+        margin: '40px'
     }
 };

@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React from 'react';
 import VirtualList from 'react-virtual-list/dist/VirtualList';
 
@@ -14,30 +15,9 @@ export default class PokemonList extends React.Component {
 }
 
 export class PokemonEntry extends React.Component {
-    constructor() {
-        super();
-        this.state = null;
-    }
-
-    async componentDidMount() {
-        const { pokedex_number } = await api.getPokedexNumber({
-            pkmnId: this.props.pokemon.id,
-            dexId: this.props.dex
-        });
-
-        const { name, genus } = await api.getPokemonName({
-            pkmnId: this.props.pokemon.id,
-            langId: 'en'
-        });
-
-        this.setState({ dexNumber: pokedex_number, name, genus });
-    }
-
     render() {
-        return this.state ?
-            <p className='pokemon-entry'>
-                #{ this.state.dexNumber } { this.state.name }, the { this.state.genus } Pokemon.
-            </p> :
-            <p className='pokemon-entry'>???</p>;
+        return <p className='pokemon-entry'>
+            #{ this.props.pokemon.dexNumber }: { this.props.pokemon.name }
+        </p>;
     }
 }

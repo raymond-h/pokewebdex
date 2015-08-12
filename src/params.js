@@ -9,7 +9,7 @@ export default (app) => {
             req.species = await Species
                 .query({ where: { id }, orWhere: { identifier: id } })
                 .fetch({
-                    withRelated: ['pokemon']
+                    withRelated: ['pokemon', 'dexNumbers', 'names.language']
                 });
 
             next();

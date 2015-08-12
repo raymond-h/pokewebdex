@@ -6,7 +6,7 @@ export default (app) => {
 
     app.get('/api/pokemon', async (req, res) => {
         const pkmns = await Species.fetchAll({
-            withRelated: ['pokemon']
+            withRelated: ['pokemon', 'dexNumbers', 'names.language']
         });
 
         res.json(pkmns);
